@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Read Chapter 1: Introduction",
+    "description": "Skim the syllabus and read Chapter 1.",
+    "estimatedMinutes": 45,
+    "week": "Week 1",
+    "priority": "high"
+  },
+  {
+    "title": "Lecture 1 Review",
+    "description": "Review notes from the first lecture.",
+    "estimatedMinutes": 30,
+    "week": "Week 1",
+    "priority": "medium"
+  },
+  {
+    "title": "Problem Set 1",
+    "description": "Solve problems 1–10 from the end of Chapter 1.",
+    "estimatedMinutes": 60,
+    "week": "Week 1",
+    "priority": "high"
+  }
+]

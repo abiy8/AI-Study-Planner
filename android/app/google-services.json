@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1006584271656",
+    "project_id": "ai-planner-app-gcp",
+    "storage_bucket": "ai-planner-app-gcp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006584271656:android:a7278bc05590275a27761d",
+        "android_client_info": {
+          "package_name": "com.dart.ai_study_planner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006584271656-j4h23gaboo7bareh0cv98ldcbtl9s7ie.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dart.ai_study_planner",
+            "certificate_hash": "efcd87f2bb7addfd1dc8defa143b338e88c60db2"
+          }
+        },
+        {
+          "client_id": "1006584271656-1165r5fhqbsgad10itgmpshb4rsof1eh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-nRnu_d0FBzrI0Q-UrHOuPzIHHJAnxOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006584271656-1165r5fhqbsgad10itgmpshb4rsof1eh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

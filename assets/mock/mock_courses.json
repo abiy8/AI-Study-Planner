@@ -1,0 +1,23 @@
+[
+  {
+    "id": "course_calculus",
+    "name": "Calculus",
+    "weeks": 5,
+    "tasks": 25,
+    "progressPercent": 0.75
+  },
+  {
+    "id": "course_history",
+    "name": "History 201",
+    "weeks": 8,
+    "tasks": 40,
+    "progressPercent": 0.5
+  },
+  {
+    "id": "course_architecture",
+    "name": "Computer Architecture",
+    "weeks": 5,
+    "tasks": 13,
+    "progressPercent": 0.06
+  }
+]
