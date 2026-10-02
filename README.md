@@ -1,136 +1,50 @@
 # AI Study Planner
 
-A mobile app that helps students turn their syllabus into actionable study plans using AI. Upload your syllabus, get organized tasks, and track your progress.
+A Flutter application for organizing courses, tracking study tasks, and requesting syllabus-based task plans through an external AI backend.
 
-## Features
+**Stack:** Flutter · Dart · Firebase Authentication · Cloud Firestore · Material 3
 
-- **Simple Login**: Sign in with Google
-- **Course Management**: Add courses and track your progress
-- **AI Planning**: Upload Syllabus and let AI create your study schedule
-- **Calendar Sync**: Export tasks to Google Calendar
-- **Progress Tracking**: See how much you've accomplished
+## Features represented in the code
 
-## Getting Started
+- Google sign-in and authentication state handling.
+- Course and task screens backed by Firestore services.
+- Syllabus upload / text submission through an HTTP API client.
+- Google Calendar event-creation links and local notification services (not automatic calendar synchronization).
+- Progress tracking and course detail views.
 
-### What You Need
+## Architecture
 
-- Flutter SDK (latest stable)
-- Dart SDK
-- Android Studio or VS Code with Flutter
-- An Android device or emulator
+`Flutter screens → Firebase auth streams / service layer → Firebase Auth + Firestore`
 
-### Installation
+`Syllabus input → HTTP API client → separately hosted task-generation backend → task models`
 
-1. Clone the repo:
+## Current build status
+
+The checked-in Firestore service has existing compile blockers: helper methods appear outside the class before imports, reference class-private fields, and call a missing `TaskModel.fromFirestore` factory. This README-only change does not fix application code. The commands below describe the intended setup, not a verified clean build. The included widget test still expects the starter counter app and does not match this implementation.
+
+## Run locally
+
 ```bash
-git clone https://github.com/yeabsira-mesfin/Planner.git
-cd Planner/ai_study_planner
-```
-
-2. Get dependencies:
-```bash
+git clone https://github.com/abiy8/AI-Study-Planner.git
+cd AI-Study-Planner
 flutter pub get
-```
-
-3. Run it:
-```bash
 flutter run
 ```
 
-## Project Structure
+Use a Flutter installation compatible with Dart `>=3.1.0 <4.0.0`. Configure your own Firebase project, enable Google authentication and Cloud Firestore, register the target app, configure Android SHA fingerprints / OAuth as appropriate, and generate matching FlutterFire configuration. Firestore rules are not included, so user isolation must be enforced in your Firebase project. The checked-in Firebase client configuration is not a server credential. Notification support is configured for Android/iOS; the presence of other platform folders does not establish working web/desktop support.
 
-```
-lib/
-├── main.dart                # App entry
-├── screens/                 # All screens
-│   ├── login_screen.dart    # Google sign in
-│   ├── home_screen.dart     # Dashboard
-│   ├── courses_screen.dart  # Course management
-│   ├── planner_screen.dart  # AI task generation
-│   └── calendar_screen.dart # Calendar view
-├── services/                # Backend stuff
-│   └── api_service.dart     # API calls
-└── state/                   # App state
-    └── auth_state.dart      # Auth management
-```
+## Backend requirements
 
+This repository contains the Flutter client. The Node.js backend described in the previous README is **not included**. AI generation requires a separate backend exposing `/api/generate-tasks` and `/api/generate-tasks-from-file` on port 3000. The client uses `10.0.2.2` for Android emulators and `localhost` for other platforms; physical devices require a reachable backend address. Backend API credentials belong on the server.
 
+## Repository map
 
-## Frontend Architecture (Flutter)
+- `lib/screens/` — authentication, courses, planner, calendar, and task views.
+- `lib/services/` — authentication, Firestore, API, accounts, and notifications.
+- `lib/models/` — course and task data models.
+- `lib/state/` — authentication state.
+- `assets/mock/` — example course and task data.
 
-```mermaid
-graph TD
-    A[User] -->|Interacts| B[Flutter UI Screens]
-    B --> C[State Management]
-    C --> D[Services (API, Firebase)]
-    D -->|Firestore| E[Firebase]
-    D -->|AI Task Gen| F[Backend API]
-    F -->|Returns Tasks| D
-```
+## Project status and provenance
 
-**Layers:**
-- UI: `screens/`, `widgets/`
-- State: `state/`
-- Services: `services/` (API, Firestore)
-- Models: Data structures for tasks, courses, user
-
-**Data Flow:**
-1. User interacts with UI (add/edit tasks, upload syllabus)
-2. State updates and triggers service calls
-3. Services interact with Backend API (for AI) or Firebase (for CRUD)
-4. UI updates in real time from Firestore
-
-## Backend Architecture (Node.js)
-
-```mermaid
-graph TD
-    A[Flutter App/API Client] -->|POST syllabus| B[Express API]
-    B -->|Text Extraction| C[File/Text Parser]
-    C -->|Prompt| D[OpenAI GPT-4o]
-    D -->|Tasks JSON| B
-    B -->|Save| E[Firestore]
-    B -->|Return tasks| A
-```
-
-**Components:**
-- Express server (`backend/index.js`)
-- OpenAI integration for task generation
-- File upload & text extraction (PDF/DOCX/TXT)
-- Firestore persistence (users/{userId}/courses/{courseId}/tasks/{taskId})
-
-**Flow:**
-1. Receives syllabus (text/file) from frontend
-2. Extracts text if file
-3. Sends prompt to OpenAI, gets structured tasks
-4. Saves tasks to Firestore
-5. Returns tasks to frontend
-
-## Frontend–Backend–Firebase Data Flow
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant Flutter
-    participant Backend
-    participant Firebase
-    User->>Flutter: Interact (add course, upload syllabus)
-    Flutter->>Backend: POST /api/generate-tasks
-    Backend->>OpenAI: Generate tasks
-    Backend->>Firebase: Save tasks
-    Backend-->>Flutter: Return tasks
-    Flutter->>Firebase: CRUD (tasks, courses, progress)
-    Firebase-->>Flutter: Real-time updates
-```
-
----
-
-## Tech Used
-
-- **Flutter** - Mobile framework
-- **Firebase** - Backend and auth
-- **Material 3** - Modern UI
-- **OpenAI** - AI task generation
-
-## License
-
-Private project - not for public use
+This is an application project whose end-to-end behavior depends on Firebase and a separately supplied backend. No live demo or production-readiness claim is made here. The previous README referenced [yeabsira-mesfin/Planner](https://github.com/yeabsira-mesfin/Planner); that reference is preserved for transparency without claiming sole original authorship. The existing usage restriction remains: private project, not for public reuse.
